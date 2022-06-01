@@ -22,7 +22,12 @@ shinyUI(fluidPage(
                         "Number of bins:",
                         min = 1,
                         max = 50,
-                        value = 30)
+                        value = 30),
+            sliderInput("priceRange",
+                         "Price range:",
+                        min = 0,
+                        max = max(data$price),
+                        value = c(0,max(data$price)))
         ),
 
         # Show a plot of the generated distribution
