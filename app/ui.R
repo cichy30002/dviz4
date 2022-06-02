@@ -42,7 +42,9 @@ shinyUI(fluidPage(
         mainPanel(
             plotOutput("distPlot"),
             leafletOutput("mapPlotPrice"),
-            leafletOutput("mapPlotType")
+            leafletOutput("mapPlotType"),
+            leafletOutput("mapPlotNeighbourhood")
         )
+        
     )
 ))

@@ -40,4 +40,14 @@ shinyServer(function(input, output) {
                                                             color = ~pal(room_type), label = paste("Name:", x$name)) %>%
         addLegend(pal=pal, values = ~room_type, title = "Room types", opacity=0.8)
     })
+    output$mapPlotNeighbourhood <- renderLeaflet({
+      pal <- colorFactor(topo.colors(length(unique(data$neighbourhood))), domain = unique(data$neighbourhood))
+      
+      map = leaflet(data = data) %>% addTiles() %>% addCircleMarkers(~longitude, ~latitude, radius = 1, opacity = 0.3, fillOpacity = 0.1,
+                                                            color = ~pal(neighbourhood), label = paste("neighbourhood:", data$neighbourhood))
+    
+    })
+    observeEvent(input$mapPlotNeighbourhood_bounds, {
+      print(input$mapPlotNeighbourhood_bounds)
+    })
 })
