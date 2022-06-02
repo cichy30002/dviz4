@@ -9,21 +9,28 @@
 
 library(shiny)
 library(dplyr)
+library(leaflet)
 
 data = read.csv("AB_NYC_2019.csv")
-
+unique(data$neighbourhood_group)
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
 
     output$distPlot <- renderPlot({
 
         # generate bins based on input$bins from ui.R
-        x    <- dplyr::filter(data,data$price %in% (input$priceRange[1]:input$priceRange[2]))$price
+        x    <- dplyr::filter(data,data$price %in% (input$priceRangeHist[1]:input$priceRangeHist[2]))$price
         bins <- seq(min(x), max(x), length.out = input$bins + 1)
 
         # draw the histogram with the specified number of bins
         hist(x, breaks = bins, col = 'darkgray', border = 'white')
 
     })
-
+    output$mapPlotPrice <- renderLeaflet({
+      x <- dplyr::filter(data,data$price %in% (input$priceRangeMap[1]:input$priceRangeMap[2]))
+      
+      leaflet(data = x) %>% addTiles() %>%  addMarkers(~longitude, ~latitude, label = paste("Name:", x$name),clusterOptions = markerClusterOptions())
+        
+    })
+    
 })

@@ -9,9 +9,10 @@
 
 library(shiny)
 
+data = read.csv("AB_NYC_2019.csv")
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
-
+    
     # Application title
     titlePanel("Old Faithful Geyser Data"),
 
@@ -23,8 +24,13 @@ shinyUI(fluidPage(
                         min = 1,
                         max = 50,
                         value = 30),
-            sliderInput("priceRange",
-                         "Price range:",
+            sliderInput("priceRangeHist",
+                         "Price range for histogram:",
+                        min = 0,
+                        max = max(data$price),
+                        value = c(0,max(data$price))),
+            sliderInput("priceRangeMap",
+                        "Price range for map:",
                         min = 0,
                         max = max(data$price),
                         value = c(0,max(data$price)))
@@ -32,7 +38,9 @@ shinyUI(fluidPage(
 
         # Show a plot of the generated distribution
         mainPanel(
-            plotOutput("distPlot")
+            plotOutput("distPlot"),
+            leafletOutput("mapPlotPrice"),
+            leafletOutput("mapPlotType")
         )
     )
 ))
