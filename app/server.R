@@ -32,5 +32,12 @@ shinyServer(function(input, output) {
       leaflet(data = x) %>% addTiles() %>%  addMarkers(~longitude, ~latitude, label = paste("Name:", x$name),clusterOptions = markerClusterOptions())
         
     })
-    
+    output$mapPlotType <- renderLeaflet({
+      pal <- colorFactor(c("blue", "red", "green"), domain = unique(data$room_type))
+      x <- dplyr::filter(data,data$neighbourhood_group %in% input$roomTypeNeighbourhoodGroupMap)
+      
+      leaflet(data = x) %>% addTiles() %>% addCircleMarkers(~longitude, ~latitude, radius = 1, opacity = 0.3, fillOpacity = 0.1,
+                                                            color = ~pal(room_type), label = paste("Name:", x$name)) %>%
+        addLegend(pal=pal, values = ~room_type, title = "Room types", opacity=0.8)
+    })
 })

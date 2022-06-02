@@ -33,7 +33,9 @@ shinyUI(fluidPage(
                         "Price range for map:",
                         min = 0,
                         max = max(data$price),
-                        value = c(0,max(data$price)))
+                        value = c(300,max(data$price))),
+            checkboxGroupInput("roomTypeNeighbourhoodGroupMap", "Neighbourhood group",
+                               unique(data$neighbourhood_group), selected = unique(data$neighbourhood_group))
         ),
 
         # Show a plot of the generated distribution
