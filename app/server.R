@@ -11,7 +11,7 @@ library(shiny)
 library(dplyr)
 library(leaflet)
 
-data = read.csv("AB_NYC_2019.csv")
+data = read.csv("AB_NYC_2019.csv",nrows = 1000)
 unique(data$neighbourhood_group)
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -47,6 +47,19 @@ shinyServer(function(input, output) {
                                                             color = ~pal(neighbourhood), label = paste("neighbourhood:", data$neighbourhood))
     
     })
+    output$availabilityPlot <- renderPlot({
+      
+      # generate bins based on input$bins from ui.R
+      bounds = input$mapPlotPrice_bounds
+      
+      x    <- dplyr::filter(data, between(data$longitude, bounds$west, bounds$east) & between(data$latitude, bounds$south, bounds$north))$availability_365
+      if(length(x) == 0){return()}else{
+      bins <- seq(min(x), max(x), length.out = input$binsAvailability + 1)
+      
+      # draw the histogram with the specified number of bins
+      hist(x, breaks = bins, col = 'darkgray', border = 'white')
+      
+    }})
     observeEvent(input$mapPlotNeighbourhood_bounds, {
       print(input$mapPlotNeighbourhood_bounds)
     })

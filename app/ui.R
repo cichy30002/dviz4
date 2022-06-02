@@ -35,7 +35,12 @@ shinyUI(fluidPage(
                         max = max(data$price),
                         value = c(300,max(data$price))),
             checkboxGroupInput("roomTypeNeighbourhoodGroupMap", "Neighbourhood group",
-                               unique(data$neighbourhood_group), selected = unique(data$neighbourhood_group))
+                               unique(data$neighbourhood_group), selected = unique(data$neighbourhood_group)),
+            sliderInput("binsAvailability",
+                        "Number of bins:",
+                        min = 1,
+                        max = 50,
+                        value = 30)
         ),
 
         # Show a plot of the generated distribution
@@ -43,7 +48,8 @@ shinyUI(fluidPage(
             plotOutput("distPlot"),
             leafletOutput("mapPlotPrice"),
             leafletOutput("mapPlotType"),
-            leafletOutput("mapPlotNeighbourhood")
+            leafletOutput("mapPlotNeighbourhood"),
+            plotOutput("availabilityPlot")
         )
         
     )
