@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
+* {
+  font-family: 'Raleway', sans-serif;
+}
+
+.logo {
+    background-color: #FF5A5F !important;
+}
+
+.navbar {
+    background-color: #FF5A5F !important;
+}
+
+.main-sidebar {
+    background-color: #FFF !important;
+}
+
+.content-wrapper, .wrapper {
+    background-color: #FFF !important;
+}
+
+#sidebarCollapsed {
+  border-right: rgba(128,128,128, 0.4) solid 0.01px;
+}
+
+.sidebar-toggle:hover {
+  background-color: #FF5A5F !important;
+  opacity: 0.7 !important;
+}
+
+a:hover {
+  background-color: rgba(255, 90, 95, 0.4) !important;
+  border-left-color: rgba(255, 90, 95, 0.4) !important;
+}
+
+li.active a{
+    background-color: rgba(255, 90, 95, 0.4) !important;
+    border-left-color: rgba(255, 90, 95, 0.4) !important;
+}
+
+.airbnb-logo {
+  width: 3%;
+  height: 3%;
+  pointer-events: none;
+}
+
+.airbnb-logo-container {
+  text-decoration: none;
+  color: #FFF;
+}
+
+h3 {
+    font-family: 'Raleway', sans-serif !important;
+}
+
+#tab-title {
+    font-family: 'Raleway', sans-serif !important;
+}
+
+.box-body {
+    font-family: 'Raleway', sans-serif !important;
+}
+
+.box-header {
+  background-color: #FF5A5F !important;
+}
+
+.box {
+  border-color: #FF5A5F !important;
+}
+
+.irs-bar, .irs-from, .irs-to, .irs-single {
+  border-color: #FF5A5F !important;
+  background-color: #FF5A5F !important;
+}
+
+input {
+  accent-color: #FF5A5F !important;
+}
