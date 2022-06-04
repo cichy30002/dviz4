@@ -35,18 +35,23 @@ dashboardPage(
       tabItem(tabName = "dashboard",
               h2("Dashboard", id="tab-title"),
               box(
-                title = "Co to w ogóle jest? xD nazwij to jakoś proszę", status = "primary", solidHeader = TRUE,
+                title = "Price distribution for the whole dataset", status = "primary", solidHeader = TRUE,
                 collapsible = TRUE,
                 plotOutput("distPlot"),
               ),
               box(
-                title = "Inputs for to coś", status = "warning", solidHeader = TRUE,
+                title = "Inputs", status = "warning", solidHeader = TRUE,
                 "Box content here", br(), "More box content",
                 sliderInput("bins",
                             "Number of bins:",
                             min = 1,
                             max = 50,
                             value = 30),
+                sliderInput("priceRangeHist",
+                            "Price range:",
+                            min = 0,
+                            max = max(data$price),
+                            value = c(0,max(data$price))),
               ),
               box(
                 title = "Datatable",
@@ -69,33 +74,11 @@ dashboardPage(
               box(
                 title = "Inputs", status = "warning", solidHeader = TRUE,
                 "Box content here", br(), "More box content",
-                sliderInput("priceRangeHist",
-                            "Price range for histogram:",
-                            min = 0,
-                            max = max(data$price),
-                            value = c(0,max(data$price))),
-              ),
-              
-              box(
-                title = "Map of places", status = "primary", solidHeader = TRUE,
-                collapsible = TRUE,
-                leafletOutput("mapPlotType"),
-              ),
-              
-              box(
-                title = "Inputs", status = "warning", solidHeader = TRUE,
-                "Box content here", br(), "More box content",
                 sliderInput("priceRangeMap",
                             "Price range for map:",
                             min = 0,
                             max = max(data$price),
                             value = c(300,max(data$price))),
-              ),
-              
-              box(
-                title = "Histogram", status = "primary", solidHeader = TRUE,
-                collapsible = TRUE,
-                leafletOutput("mapPlotNeighbourhood")
               ),
               
               box(
@@ -106,14 +89,21 @@ dashboardPage(
               ),
               
               box(
-                title = "Histogram of prices on the current region of the map", status = "primary", solidHeader = TRUE,
+                title = "Map of places", status = "primary", solidHeader = TRUE,
                 collapsible = TRUE,
-                plotOutput("availabilityPlot")
+                leafletOutput("mapPlotType"),
+              ),
+
+              box(
+                title = "Histogram", status = "primary", solidHeader = TRUE,
+                collapsible = TRUE,
+                leafletOutput("mapPlotNeighbourhood")
               ),
               
               box(
-                title = "Inputs", status = "warning", solidHeader = TRUE,
-                "Box content here", br(), "More box content",
+                title = "Histogram of available days per year for the current region of the map", status = "primary", solidHeader = TRUE,
+                collapsible = TRUE,
+                plotOutput("availabilityPlot"),
                 sliderInput("binsAvailability",
                             "Number of bins:",
                             min = 1,

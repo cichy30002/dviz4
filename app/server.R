@@ -51,8 +51,8 @@ shinyServer(function(input, output) {
   output$availabilityPlot <- renderPlot({
     
     # generate bins based on input$bins from ui.R
-    bounds = input$mapPlotPrice_bounds
-    
+    bounds = input$mapPlotNeighbourhood_bounds
+    print(bounds)
     x    <- dplyr::filter(data, between(data$longitude, bounds$west, bounds$east) & between(data$latitude, bounds$south, bounds$north))$availability_365
     if(length(x) == 0){return()}else{
       bins <- seq(min(x), max(x), length.out = input$binsAvailability + 1)
@@ -65,9 +65,4 @@ shinyServer(function(input, output) {
     print(input$mapPlotNeighbourhood_bounds)
   })
   
-  output$nycDatatable = DT::renderDataTable({
-    data
-  }, options = list(
-    scrollX = TRUE
-  ))
 })
