@@ -101,10 +101,10 @@ dashboardPage(
               ),
               
               box(
-                title = "Histogram of available days per year for the current region of the map", status = "primary", solidHeader = TRUE,
+                title = "Histogram of reviews per month for the current region of the map", status = "primary", solidHeader = TRUE,
                 collapsible = TRUE,
-                plotOutput("availabilityPlot"),
-                sliderInput("binsAvailability",
+                plotOutput("reviewsPlot"),
+                sliderInput("binsReviews",
                             "Number of bins:",
                             min = 1,
                             max = 50,

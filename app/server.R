@@ -48,21 +48,18 @@ shinyServer(function(input, output) {
                                                                    color = ~pal(neighbourhood), label = paste("neighbourhood:", data$neighbourhood))
     
   })
-  output$availabilityPlot <- renderPlot({
+  output$reviewsPlot <- renderPlot({
     
     # generate bins based on input$bins from ui.R
     bounds = input$mapPlotNeighbourhood_bounds
-    print(bounds)
-    x    <- dplyr::filter(data, between(data$longitude, bounds$west, bounds$east) & between(data$latitude, bounds$south, bounds$north))$availability_365
+    x    <- dplyr::filter(data, between(data$longitude, bounds$west, bounds$east) & between(data$latitude, bounds$south, bounds$north))$reviews_per_month
+    x[is.na(x)] <- 0
     if(length(x) == 0){return()}else{
-      bins <- seq(min(x), max(x), length.out = input$binsAvailability + 1)
+      bins <- seq(min(x), max(x), length.out = input$binsReviews + 1)
       
       # draw the histogram with the specified number of bins
       hist(x, breaks = bins, col = 'darkgray', border = 'white')
       
     }})
-  observeEvent(input$mapPlotNeighbourhood_bounds, {
-    print(input$mapPlotNeighbourhood_bounds)
-  })
   
 })
