@@ -15,10 +15,10 @@ data = read.csv("AB_NYC_2019.csv")
 
 # Define UI for application that draws a histogram
 dashboardPage(
-#  dashboardHeader(title = div(span("NYC Airbnb"), img(src="logo.png", class="airbnb-logo"))),
+  #  dashboardHeader(title = div(span("NYC Airbnb"), img(src="logo.png", class="airbnb-logo"))),
   dashboardHeader(title = tags$a(href='', class="airbnb-logo-container",
                                  tags$img(src="white-logo.png", height = '35', width = '35'),
-                                'NYC Airbnb', target="_blank", class="airbnb-logo")),
+                                 'NYC Airbnb', target="_blank", class="airbnb-logo")),
   dashboardSidebar(
     sidebarMenu(
       menuItem(span("Dashboard"), tabName = "dashboard", icon = icon("dashboard")),
@@ -93,7 +93,7 @@ dashboardPage(
                 collapsible = TRUE,
                 leafletOutput("mapPlotType"),
               ),
-
+              
               box(
                 title = "Histogram", status = "primary", solidHeader = TRUE,
                 collapsible = TRUE,
@@ -118,17 +118,17 @@ dashboardPage(
                 p(
                   "Around the turn of the year 2019/20 there was a coronavirus outbreak, which shocked the world.
                   Nearly everyone on the planet was somehow affected by it and for travel industry it was no exception.
-                  The booking number plummeted due to the governments restriction on movement and people's panic of getting infected.
+                  The number of booking plummeted due to the governments restrictions on movement and people's panic of getting infected.
                   However, now the situation seems to be stabilazing thanks to the vaccines.
                   "
                 ),
                 p(
-                  "Due to that fact the number of hotel bookings is constantly growing, but still it is still below 2019 values.
+                  "The number of hotel bookings is constantly growing, but still is below 2019 values.
                   That's why we decided to create an application for visualizing accomodation listing in given area.
                   We decided to choose New York City, because it is one of the most important cities in the world and we also
-                  found many proves for increased booking demand there.
-                  We also discovered excellent dataset with nearly 50 thousand listings from one of the most popular platform for booking Airbnb.
-                  This data is from pre-pandemic year of 2019 when there was many options available."
+                  found many evidences for increased booking demand there.
+                  We also discovered excellent dataset with nearly 50 thousand listings from one of the most popular platform for booking called Airbnb.
+                  This data is from pre-pandemic year of 2019 when there were many options available."
                 ),
                 p(
                   "We believe that our app can help with getting insigts about the market there for example, which neighbourhoods were the most popular ones."
