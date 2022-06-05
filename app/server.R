@@ -62,8 +62,11 @@ shinyServer(function(input, output) {
       bins <- seq(min(x), max(x), length.out = input$binsReviews + 1)
       
       # draw the histogram with the specified number of bins
-      hist(x, breaks = bins, col = 'darkgray', border = 'white')
-      
+      #hist(x, breaks = bins, col = 'darkgray', border = 'white')
+      x = data.frame(x)
+      ggplot(x, aes(x = x)) +
+        geom_histogram(colour = "black", fill = "#FF5A5F", bins = input$bins + 1) +
+        xlab("Review count") + ylab("Listing count") + theme_minimal()
     }})
   
   output$nycDatatable = DT::renderDataTable({

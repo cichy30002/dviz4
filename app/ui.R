@@ -15,6 +15,7 @@ data = read.csv("AB_NYC_2019.csv")
 
 # Define UI for application that draws a histogram
 dashboardPage(
+  title = "NYC Airbnb",
   #  dashboardHeader(title = div(span("NYC Airbnb"), img(src="logo.png", class="airbnb-logo"))),
   dashboardHeader(title = tags$a(href='', class="airbnb-logo-container",
                                  tags$img(src="white-logo.png", height = '35', width = '35'),
