@@ -11,6 +11,7 @@ library(shiny)
 library(dplyr)
 library(leaflet)
 library(DT)
+library(ggplot2)
 
 data = read.csv("AB_NYC_2019.csv")
 unique(data$neighbourhood_group)
@@ -24,8 +25,11 @@ shinyServer(function(input, output) {
     bins <- seq(min(x), max(x), length.out = input$bins + 1)
     
     # draw the histogram with the specified number of bins
-    hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    
+    #hist(x, breaks = bins, col = 'darkgray', border = 'white')
+    x = data.frame(x)
+    ggplot(x, aes(x = x)) +
+      geom_histogram(colour = "black", fill = "#FF5A5F", bins = input$bins + 1) +
+      xlab("Price") + ylab("Number of listings") + theme_minimal()
   })
   output$mapPlotPrice <- renderLeaflet({
     x <- dplyr::filter(data,data$price %in% (input$priceRangeMap[1]:input$priceRangeMap[2]))
