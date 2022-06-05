@@ -21,7 +21,7 @@ dashboardPage(
                                  'NYC Airbnb', target="_blank", class="airbnb-logo")),
   dashboardSidebar(
     sidebarMenu(
-      menuItem(span("Dashboard"), tabName = "dashboard", icon = icon("dashboard")),
+      menuItem(span("Data"), tabName = "dashboard", icon = icon("table")),
       menuItem("Maps", tabName = "maps", icon = icon("map")),
       menuItem("About", tabName = "about", icon = icon("info"))
     )
@@ -33,26 +33,33 @@ dashboardPage(
     
     tabItems(
       tabItem(tabName = "dashboard",
-              h2("Dashboard", id="tab-title"),
+              h2("Data", id="tab-title"),
+            
               box(
-                title = "Price distribution for the whole dataset", status = "primary", solidHeader = TRUE,
+                title="Price distribution for the whole dataset",
+                status="primary",
+                solidHeader = TRUE,
+                width = 12,
                 collapsible = TRUE,
-                plotOutput("distPlot"),
+                box(
+                  title = "Histogram", status = "primary", solidHeader = TRUE,
+                  plotOutput("distPlot")
+                ),
+                box(
+                  title = "Inputs", status = "warning", solidHeader = TRUE,
+                  sliderInput("bins",
+                              "Number of bins:",
+                              min = 1,
+                              max = 50,
+                              value = 30),
+                  sliderInput("priceRangeHist",
+                              "Price range:",
+                              min = 0,
+                              max = max(data$price),
+                              value = c(0,max(data$price))),
+                )  
               ),
-              box(
-                title = "Inputs", status = "warning", solidHeader = TRUE,
-                "Box content here", br(), "More box content",
-                sliderInput("bins",
-                            "Number of bins:",
-                            min = 1,
-                            max = 50,
-                            value = 30),
-                sliderInput("priceRangeHist",
-                            "Price range:",
-                            min = 0,
-                            max = max(data$price),
-                            value = c(0,max(data$price))),
-              ),
+              
               box(
                 title = "Datatable",
                 status = "primary", solidHeader = TRUE,
@@ -66,49 +73,66 @@ dashboardPage(
       tabItem(tabName = "maps",
               h2("Maps", id="tab-title"),
               box(
-                title = "Histogram", status = "primary", solidHeader = TRUE,
+                title="Map of all listings",
+                status="primary",
+                solidHeader = TRUE,
+                width = 12,
                 collapsible = TRUE,
-                leafletOutput("mapPlotPrice"),
+                box(
+                  title = "Map", status = "primary", solidHeader = TRUE,
+                  leafletOutput("mapPlotPrice"),
+                ),
+                
+                box(
+                  title = "Input", status = "warning", solidHeader = TRUE,
+                  sliderInput("priceRangeMap",
+                              "Price range for map:",
+                              min = 0,
+                              max = max(data$price),
+                              value = c(300,max(data$price))),
+                ),
               ),
               
               box(
-                title = "Inputs", status = "warning", solidHeader = TRUE,
-                "Box content here", br(), "More box content",
-                sliderInput("priceRangeMap",
-                            "Price range for map:",
-                            min = 0,
-                            max = max(data$price),
-                            value = c(300,max(data$price))),
-              ),
-              
-              box(
-                title = "Inputs", status = "warning", solidHeader = TRUE,
-                "Box content here", br(), "More box content",
-                checkboxGroupInput("roomTypeNeighbourhoodGroupMap", "Neighbourhood group",
-                                   unique(data$neighbourhood_group), selected = unique(data$neighbourhood_group))
-              ),
-              
-              box(
-                title = "Map of places", status = "primary", solidHeader = TRUE,
+                title="Map of listings by their types",
+                status="primary",
+                solidHeader = TRUE,
+                width = 12,
                 collapsible = TRUE,
-                leafletOutput("mapPlotType"),
+                box(
+                  title = "Inputs", status = "warning", solidHeader = TRUE,
+                  width = 3,
+                  checkboxGroupInput("roomTypeNeighbourhoodGroupMap", "Neighbourhood group",
+                                     unique(data$neighbourhood_group), selected = unique(data$neighbourhood_group))
+                ),
+                
+                box(
+                  title = "Map", status = "primary", solidHeader = TRUE,
+                  width = 9,
+                  leafletOutput("mapPlotType"),
+                ),
               ),
               
               box(
-                title = "Histogram", status = "primary", solidHeader = TRUE,
+                title="Map of listings by number of reviews",
+                status="primary",
+                solidHeader = TRUE,
+                width = 12,
                 collapsible = TRUE,
-                leafletOutput("mapPlotNeighbourhood")
-              ),
-              
-              box(
-                title = "Histogram of reviews per month for the current region of the map", status = "primary", solidHeader = TRUE,
-                collapsible = TRUE,
-                plotOutput("reviewsPlot"),
-                sliderInput("binsReviews",
-                            "Number of bins:",
-                            min = 1,
-                            max = 50,
-                            value = 30)
+                box(
+                  title = "Map", status = "primary", solidHeader = TRUE,
+                  leafletOutput("mapPlotNeighbourhood")
+                ),
+                
+                box(
+                  title = "Histogram of reviews per month for the current region of the map", status = "primary", solidHeader = TRUE,
+                  plotOutput("reviewsPlot"),
+                  sliderInput("binsReviews",
+                              "Number of bins:",
+                              min = 1,
+                              max = 50,
+                              value = 30)
+                )
               )
       ),
       
