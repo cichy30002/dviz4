@@ -12,7 +12,7 @@ library(dplyr)
 library(leaflet)
 library(DT)
 
-data = read.csv("AB_NYC_2019.csv",nrows = 1000)
+data = read.csv("AB_NYC_2019.csv")
 unique(data$neighbourhood_group)
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -61,5 +61,11 @@ shinyServer(function(input, output) {
       hist(x, breaks = bins, col = 'darkgray', border = 'white')
       
     }})
+  
+  output$nycDatatable = DT::renderDataTable({
+    data
+  }, options = list(
+    scrollX = TRUE
+  ))
   
 })
